@@ -147,7 +147,7 @@ export const resendOTP = async (req: Request, res: Response) => {
 
         if (user.isVerified) {
             return res.status(400).json({
-                message: "User already verified"
+                message: "User is already verified"
             })
         };
 
