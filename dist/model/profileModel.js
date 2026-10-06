@@ -17,7 +17,7 @@ const profileSchema = new Schema({
         type: String,
     },
     phoneNumber: {
-        type: Number,
+        type: String,
     },
     nationality: {
         type: String,

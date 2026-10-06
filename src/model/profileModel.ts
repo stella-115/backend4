@@ -6,7 +6,7 @@ export interface iProfile extends Document {
     name: string;
     username: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     nationality: string;
     dateOfBirth: string;
     createdAt: Date;
@@ -31,7 +31,7 @@ const profileSchema: Schema = new Schema({
         type: String,
     },
     phoneNumber: {
-        type: Number,
+        type: String,
     },
     nationality: {
         type: String,
