@@ -5,5 +5,5 @@ export interface AuthRequest extends Request {
         email: string;
     };
 }
-export declare const protect: (req: Request, res: Response, next: NextFunction) => void;
+export declare const protect: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 //# sourceMappingURL=authMiddleware.d.ts.map

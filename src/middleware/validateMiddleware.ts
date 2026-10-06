@@ -11,21 +11,23 @@ export const validateEmail = (req: Request, res: Response, next: NextFunction) =
             success: false,
             message: "Email is required"
         });
-        return
+        return;
     }
 
     if (!email.includes("@")) {
         res.status(400).json({
             success: false,
             message: "Please, provide a valid email address"
-        })
+        });
+         return;
     }
 
     if (!email.includes(".com")) {
         res.status(400).json({
             success: false,
             message: "Please, provide a valid email"
-        })
+        });
+         return;
     }
     next()
 }
@@ -69,7 +71,7 @@ export const validateSignup = (req: Request, res: Response, next: NextFunction) 
             success: false,
             message: "Email, Password, Terms & condition and role is required"
         })
-        return
+        return;
     }
 
      if (!email.includes("@")) {
@@ -77,6 +79,7 @@ export const validateSignup = (req: Request, res: Response, next: NextFunction) 
             success: false,
             message: "Please, provide a valid email address"
         })
+         return;;
     }
 
     if (password.length < 7) {
@@ -84,6 +87,7 @@ export const validateSignup = (req: Request, res: Response, next: NextFunction) 
             success: false,
             message: "Password must have, at least, 7 characters"
         })
+         return;
     }
 
      // password must contain a number

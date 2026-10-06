@@ -13,12 +13,14 @@ export const validateEmail = (req, res, next) => {
             success: false,
             message: "Please, provide a valid email address"
         });
+        return;
     }
     if (!email.includes(".com")) {
         res.status(400).json({
             success: false,
             message: "Please, provide a valid email"
         });
+        return;
     }
     next();
 };
@@ -61,12 +63,15 @@ export const validateSignup = (req, res, next) => {
             success: false,
             message: "Please, provide a valid email address"
         });
+        return;
+        ;
     }
     if (password.length < 7) {
         res.status(400).json({
             success: false,
             message: "Password must have, at least, 7 characters"
         });
+        return;
     }
     // password must contain a number
     if (!/\d/.test(password)) {

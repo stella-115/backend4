@@ -1,12 +1,14 @@
 import newUser from "../model/newUserModel.js";
 import bcrypt from "bcryptjs";
 import { sendOtpToEmail } from "../emailService/mailer.js";
+// import profileModel from "../model/profileModel.js"; 
 // Generate OTP
 const generateNewOtp = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
 };
 //Generate Token
 import jwt from "jsonwebtoken";
+import profileModel from "../model/profileModel.js";
 export const generateNewToken = (payload) => {
     const secret = process.env.JWT_SECRET;
     if (!secret) {
@@ -35,6 +37,10 @@ export const signup = async (req, res) => {
             otp,
             isVerified: false,
             otpExpires: new Date(Date.now() + 10 * 60 * 1000)
+        });
+        await profileModel.create({
+            user: user._id,
+            email: user.email
         });
         await sendOtpToEmail(email, otp);
         return res.status(201).json({
@@ -110,7 +116,7 @@ export const resendOTP = async (req, res) => {
         }
         if (user.isVerified) {
             return res.status(400).json({
-                message: "User already verified"
+                message: "User is already verified"
             });
         }
         ;
@@ -149,6 +155,7 @@ export const signin = async (req, res) => {
                 success: false,
                 message: "user has not been verified"
             });
+            return;
         }
         // check password
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
@@ -164,15 +171,29 @@ export const signin = async (req, res) => {
             id: user._id.toString(),
             email: user.email
         });
+        // res.status(200).json({
+        //     success: true,
+        //     message: "signin successsful",
+        //     data: {
+        //         token,
+        //         user: {
+        //             id: user._id,
+        //             email: user.email,
+        //             isVerified: user.isVerified,
+        //         }
+        //     }
+        // })
+        const profile = await profileModel.findOne({ user: user._id });
         res.status(200).json({
             success: true,
-            message: "signin successsful",
+            message: "signin successful",
             data: {
                 token,
                 user: {
                     id: user._id,
                     email: user.email,
                     isVerified: user.isVerified,
+                    profile: profile || null,
                 }
             }
         });
