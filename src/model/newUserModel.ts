@@ -13,6 +13,7 @@ const newUserSchema = new Schema<InewUser>({
     email: {
         type: String,
         required: true,
+        unique: true, 
     },
     password: {
         type: String,

@@ -44,7 +44,7 @@ export const userProfile = async (req: Request, res: Response) => {
 
 // get all user
 
-export const getUsers = async (req: Request, res: Response) =>{
+export const getAllUsers = async (req: Request, res: Response) =>{
         try{
             const allUsers = await profileModel.find()
               .populate("user", "email isVerified createdAt"); 
@@ -60,3 +60,28 @@ export const getUsers = async (req: Request, res: Response) =>{
             })
         }
 }
+
+// getOneUser
+
+
+export const getUser = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const user = await profileModel.findById()
+      .select("email isVerified createdAt name username phoneNumber nationality dateOfBirth");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "Profile retrieved",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error getting profile" });
+  }
+};

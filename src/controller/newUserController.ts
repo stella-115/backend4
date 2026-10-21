@@ -62,7 +62,7 @@ export const signup = async (req: Request, res: Response) => {
         })
 
         await profileModel.create({ 
-             user: user._id,
+             user: user._id as any,
              email: user.email
         });
 
@@ -237,7 +237,7 @@ export const signin = async (req: Request, res: Response) => {
         //         }
         //     }
         // })
-        const profile = await profileModel.findOne({ user: user._id });
+        const profile = await profileModel.findOne({ user: user._id as any });
 
             res.status(200).json({
             success: true,

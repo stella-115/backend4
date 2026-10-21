@@ -13,7 +13,7 @@ export interface AuthRequest extends Request {
 
 export const protect = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // console.log(" ALL HEADERS:", req.headers);
+        console.log(" ALL HEADERS:", req.headers);
         const authHeader = req.headers.authorization;
 
         if (!authHeader) {

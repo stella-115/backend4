@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 export interface iProfile extends Document {
-    user: mongoose.Types.ObjectId;
+    user: mongoose.Schema.Types.ObjectId;
     name: string;
     username: string;
     email: string;
